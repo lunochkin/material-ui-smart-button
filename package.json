@@ -11,8 +11,9 @@
   "homepage": "https://github.com/lunochkin/material-ui-smart-button#readme",
   "scripts": {
     "test": "standard",
-    "build": "babel src -d lib --ignore '**/*.spec.js'",
-    "prepublish": "npm run build",
+    "lib:build": "babel src -d lib --ignore '**/*.spec.js'",
+    "prepublish": "npm run lib:build",
+    "build": "npm run lib:build && npm run demo:build",
     "demo:dev": "webpack-dev-server",
     "demo:build": "webpack --mode=production",
     "demo:deploy": "gh-pages -d demo/dist"
