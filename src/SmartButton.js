@@ -55,13 +55,15 @@ class SmartButton extends React.Component {
       processed: result !== false
     })
 
-    if (this.props.iconTime) {
+    const iconTime = this.props.iconTime === undefined ? 2000 : this.props.iconTime
+
+    if (iconTime) {
       this.timerID = setTimeout(() => {
         this.setState({
           processed: false,
           error: false
         })
-      }, this.props.iconTime)
+      }, iconTime)
     }
   }
 
@@ -73,30 +75,15 @@ class SmartButton extends React.Component {
   }
 
   render () {
-    const buttonProps = {}
-
-    buttonProps['type'] = this.props.type || 'button'
-    buttonProps['onClick'] = this.onClick
-    buttonProps['color'] = this.props.color || 'default'
-
-    if (this.props.bsSize) {
-      buttonProps['bsSize'] = this.props.bsSize
+    const buttonProps = {
+      type: 'button',
+      color: 'default',
+      variant: 'raised',
+      ...this.props,
+      onClick: this.onClick,
     }
-
-    if (this.props.disabled !== undefined) {
-      buttonProps['disabled'] = this.props.disabled
-    }
-
-    if (this.props.style) {
-      buttonProps['style'] = this.props.style
-    }
-
-    if (this.props.tabIndex) {
-      buttonProps['tabIndex'] = this.props.tabIndex
-    }
-
-    buttonProps['variant'] = this.props.variant || 'raised'
-    buttonProps['mini'] = this.props.mini !== undefined ? this.props.mini : true
+    delete buttonProps.icon
+    delete buttonProps.title
 
     if (this.props.icon) {
       return this.renderIconButton(buttonProps)
@@ -106,7 +93,9 @@ class SmartButton extends React.Component {
   }
 
   renderIconButton (buttonProps) {
-    const size = buttonProps['mini'] ? 48 : 64
+
+    const size = buttonProps.mini ? 48 : 64
+
     return (
       <Button {...buttonProps} variant='fab'>
         {this.state.processing &&
