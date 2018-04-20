@@ -83,6 +83,8 @@ class SmartButton extends React.Component {
       onClick: this.onClick,
     }
     delete buttonProps.icon
+    delete buttonProps.iconTime
+    delete buttonProps.process
     delete buttonProps.title
 
     if (this.props.icon) {
