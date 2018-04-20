@@ -15,6 +15,11 @@ class App extends React.Component {
 
   process = () => {
     return new Promise(resolve => {
+      if (!window.confirm('Are you sure?')) {
+        resolve(false)
+        return
+      }
+
       setTimeout(resolve, 1000)
     })
   }

@@ -37,8 +37,20 @@ class SmartButton extends React.Component {
       processing: true
     })
 
-    this.props.process().then(() => {
-      this.setStatus(true)
+    this.props.process().then(result => {
+      if (result === false) {
+        if (this.unmounting) {
+          return
+        }
+
+        this.setState({
+          processing: false,
+          error: false,
+          processed: false
+        })
+      } else {
+        this.setStatus(true)
+      }
     }).catch(() => {
       this.setStatus(false)
     })
