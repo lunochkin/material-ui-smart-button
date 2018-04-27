@@ -13,7 +13,7 @@ class App extends React.Component {
     })
   }
 
-  process = () => {
+  handleClickWithConfirmation = () => {
     return new Promise(resolve => {
       if (!window.confirm('Are you sure?')) {
         resolve(false)
@@ -24,14 +24,24 @@ class App extends React.Component {
     })
   }
 
+  handleClick = () => {
+    return new Promise(resolve => {
+      setTimeout(resolve, 1000)
+    })
+  }
+
   render () {
     return (
       <div>
-        <SmartButton
-          process={this.process}
-          icon={<SaveIcon />}
-          iconTime={2000}
-        />
+        <div>
+          <h3>Usual case</h3>
+          <SmartButton onClick={this.handleClick}><SaveIcon /></SmartButton>
+        </div>
+
+        <div>
+          <h3>With confirmation</h3>
+          <SmartButton onClick={this.handleClickWithConfirmation} iconTime={2000}><SaveIcon /></SmartButton>
+        </div>
       </div>
     )
   }

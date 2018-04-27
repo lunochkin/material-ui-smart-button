@@ -3,9 +3,7 @@ import Button from 'material-ui/Button'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import ErrorIcon from '@material-ui/icons/Error'
 import CircularProgress from 'material-ui/Progress/CircularProgress'
-
 class SmartButton extends React.Component {
-
   timerID = undefined
   unmounting = false
 
@@ -37,7 +35,7 @@ class SmartButton extends React.Component {
       processing: true
     })
 
-    this.props.process().then(result => {
+    this.props.onClick().then(result => {
       if (result === false) {
         if (this.unmounting) {
           return
@@ -90,16 +88,13 @@ class SmartButton extends React.Component {
     const buttonProps = {
       type: 'button',
       color: 'default',
-      variant: 'raised',
+      variant: 'fab',
       ...this.props,
-      onClick: this.onClick,
+      onClick: this.onClick
     }
-    delete buttonProps.icon
     delete buttonProps.iconTime
-    delete buttonProps.process
-    delete buttonProps.title
 
-    if (this.props.icon) {
+    if (buttonProps.variant === 'fab') {
       return this.renderIconButton(buttonProps)
     }
 
@@ -107,11 +102,10 @@ class SmartButton extends React.Component {
   }
 
   renderIconButton (buttonProps) {
-
     const size = buttonProps.mini ? 48 : 64
 
     return (
-      <Button {...buttonProps} variant='fab'>
+      <Button {...buttonProps}>
         {this.state.processing &&
           <CircularProgress size={size} style={{
             position: 'absolute',
@@ -131,7 +125,7 @@ class SmartButton extends React.Component {
         }
 
         {!this.state.processed && !this.state.error &&
-          this.props.icon
+          this.props.children
         }
       </Button>
     )
@@ -140,7 +134,7 @@ class SmartButton extends React.Component {
   renderStandardButton (buttonProps) {
     return (
       <Button {...buttonProps}>
-        <span>{this.props.title}</span>
+        <span>{this.props.children}</span>
         {this.state.processed &&
           <CheckCircleIcon />
         }
