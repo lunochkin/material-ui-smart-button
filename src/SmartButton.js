@@ -1,8 +1,9 @@
 import React from 'react'
-import Button from 'material-ui/Button'
+import Button from '@material-ui/core/Button'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import ErrorIcon from '@material-ui/icons/Error'
-import CircularProgress from 'material-ui/Progress/CircularProgress'
+import CircularProgress from '@material-ui/core/CircularProgress'
+
 class SmartButton extends React.Component {
   timerID = undefined
   unmounting = false
