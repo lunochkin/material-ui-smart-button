@@ -86,11 +86,12 @@ class SmartButton extends React.Component {
   }
 
   render () {
+    const {confirm, ...props} = this.props
     const buttonProps = {
       type: 'button',
       color: 'default',
       variant: 'fab',
-      ...this.props,
+      ...props,
       onClick: this.onClick
     }
     delete buttonProps.iconTime
