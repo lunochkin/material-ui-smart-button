@@ -36,7 +36,9 @@ class SmartButton extends React.Component {
       processing: true
     })
 
-    this.props.onClick().then(result => {
+    const {onClick, suppressErrors = false} = this.props
+
+    onClick().then(result => {
       if (result === false) {
         if (this.unmounting) {
           return
@@ -50,7 +52,10 @@ class SmartButton extends React.Component {
       } else {
         this.setStatus(true)
       }
-    }).catch(() => {
+    }).catch(e => {
+      if (!suppressErrors) {
+        console.error(e)
+      }
       this.setStatus(false)
     })
   }
@@ -86,7 +91,7 @@ class SmartButton extends React.Component {
   }
 
   render () {
-    const {confirm, ...props} = this.props
+    const {confirm, suppressErrors, ...props} = this.props
     const buttonProps = {
       type: 'button',
       color: 'default',
