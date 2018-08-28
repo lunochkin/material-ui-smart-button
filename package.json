@@ -1,6 +1,6 @@
 {
   "name": "material-ui-smart-button",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Smart button for material-ui@next",
   "main": "lib/index.js",
   "author": "@lunochkin",
